@@ -3,7 +3,6 @@ import 'package:server_api/home/home_article_data.dart';
 class HomeBean<T> {
   HomeType? type;
   T? itemData;
-
   set data(T data) {
     this.itemData = data;
   }

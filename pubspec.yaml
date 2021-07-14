@@ -26,6 +26,8 @@ dependencies:
 
   server_api:
     path: packages/feature_network/server_api
+  home_ui:
+    path: packages/feature_home/home_ui
 
 
   # The following adds the Cupertino Icons font to your application.

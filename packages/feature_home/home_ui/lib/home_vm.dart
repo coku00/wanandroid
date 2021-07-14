@@ -3,12 +3,21 @@ import 'package:flutter/foundation.dart';
 import 'package:home_ui/bean.dart';
 import 'package:server_api/home/home_article_data.dart';
 import 'home_model.dart';
+import 'loading_vm.dart';
 
-class HomeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
+class HomeViewModel extends BaseViewModel {
   int page = 0;
-  List<HomeBean> _data = [];
+  HomeBannerBean _bannerData = HomeBannerBean();
+  List<HomeArticleBean> _articleData = [];
 
-  List<HomeBean> get homeData => _data;
+  List<HomeArticleBean> get articleData => _articleData;
+
+  HomeBannerBean get bannerData => _bannerData;
+
+  int itemSize() {
+    var v = _bannerData.itemData == null ? 0 : 1;
+    return articleData.length + v;
+  }
 
   HomeModel _model = HomeModel();
 
@@ -34,26 +43,24 @@ class HomeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     page = 0;
     Future.wait([_model.getBanner(), _model.getArticleList('$page')])
         .then((values) {
-      _data.clear();
+      articleData.clear();
       values.forEach((element) {
         if (element is List<BannerInfo>?) {
-          var item = HomeBannerBean();
           List<BannerInfo> banners = element as List<BannerInfo>;
-          item.data = banners;
-          _data.first = item;
+          bannerData.itemData = banners;
         }
-
         if (element is List<ArticleInfo>?) {
           List<ArticleInfo>? articleInfos = element;
           articleInfos!.forEach((e) {
             var item = HomeArticleBean();
             item.data = e;
-            _data.add(item);
+            articleData.add(item);
           });
         }
-
-        notifyListeners();
       });
+      print('size = ${articleData.length}');
+      status = RefreshStatus.complete;
+      // notifyListeners();
     });
   }
 
@@ -66,16 +73,15 @@ class HomeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
         } else {
           value.forEach((element) {
             if (element is List<ArticleInfo>?) {
-              List<ArticleInfo>? articleInfos =
-              element as List<ArticleInfo>?;
-              articleInfos!.forEach((e) {
+              List<ArticleInfo>? articles = element as List<ArticleInfo>?;
+              articles!.forEach((e) {
                 var item = HomeArticleBean();
                 item.data = e;
-                _data.add(item);
+                articleData.add(item);
               });
             }
           });
-          notifyListeners();
+          status = RefreshStatus.complete;
         }
       }
     });

@@ -34,7 +34,7 @@ class TokenInterceptor extends Interceptor {
     super.onResponse(response, handler);
     print(
         "==================================================================================================");
-    // print(response.data);
+     print(response.data);
 
     var cookies = response.headers['set-cookie'];
     cookies?.forEach((element) {

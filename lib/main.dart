@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_ui/home_ui.dart';
 import 'package:server_api/dio_impl.dart';
 import 'package:server_api/home/home_client.dart';
 import 'package:server_api/user/user_client.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomeScreen(),
     );
   }
 }

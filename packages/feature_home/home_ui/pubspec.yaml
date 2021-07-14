@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   pull_to_refresh: ^2.0.0
   provider: ^5.0.0
-  banners: ^0.3.0
+  flutter_swiper_null_safety: ^1.0.2
   server_api:
     path: ../../feature_network/server_api
 
