@@ -58,7 +58,6 @@ class HomeViewModel extends BaseViewModel {
           });
         }
       });
-      print('size = ${articleData.length}');
       status = RefreshStatus.complete;
       // notifyListeners();
     });
