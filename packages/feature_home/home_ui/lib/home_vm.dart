@@ -66,22 +66,17 @@ class HomeViewModel extends BaseViewModel {
   void loadMore() {
     ++page;
     _model.getArticleList('$page').then((value) {
-      {
-        if (value!.isEmpty) {
-          _noMore = true;
-        } else {
-          value.forEach((element) {
-            if (element is List<ArticleInfo>?) {
-              List<ArticleInfo>? articles = element as List<ArticleInfo>?;
-              articles!.forEach((e) {
-                var item = HomeArticleBean();
-                item.data = e;
-                articleData.add(item);
-              });
-            }
-          });
-          status = RefreshStatus.complete;
-        }
+      if (value!.isEmpty) {
+        _noMore = true;
+      } else {
+        value.forEach((element) {
+          if (element is ArticleInfo) {
+            var item = HomeArticleBean();
+            item.data = element;
+            articleData.add(item);
+          }
+        });
+        status = RefreshStatus.complete;
       }
     });
   }

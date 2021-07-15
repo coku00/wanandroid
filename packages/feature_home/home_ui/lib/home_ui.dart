@@ -87,7 +87,7 @@ class HomeWidget extends StatelessWidget {
   Widget _buildBanner(HomeBannerBean banners) {
     var size = banners.itemData!.length;
     return Container(
-      height: 200,
+      height: 300,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
           BannerInfo bean = banners.itemData![index];
@@ -99,6 +99,16 @@ class HomeWidget extends StatelessWidget {
   }
 
   Widget _buildArticle(HomeArticleBean homeBean) {
-    return Text('');
+
+    return Container(
+      height: 150,
+      child: Column(
+        children: [
+          Row(),
+          Text(homeBean.itemData?.title ?? ''),
+          Row()
+        ],
+      ),
+    );
   }
 }
